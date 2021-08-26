@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, Button } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, View, TextInput, Button, Alert } from "react-native";
 
 export default function AddTodo({ addTodo }) {
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
 
   function submitHandler() {
-    addTodo({ text: text, key: Math.random().toString() });
-    setText('');
+    if (text.length > 3) {
+      addTodo({ text: text, key: Math.random().toString() });
+      setText("");
+    } else {
+      Alert.alert("OOps", "Todos must be over 3 chars long", [
+        { Text: "Understood", onPress: () => console.log("alert closed") },
+      ]);
+    }
   }
 
   return (
@@ -28,6 +34,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 6,
     borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    borderBottomColor: "#ddd",
   },
 });
